@@ -34,7 +34,7 @@ CONNECTION_STRING = os.getenv(
 # ==========================================
 
 def get_connection():
-    return pyodbc.connect(CONNECTION_STRING, timeout=5)
+    return pyodbc.connect(CONNECTION_STRING, timeout=30)
 
 
 # ==========================================
