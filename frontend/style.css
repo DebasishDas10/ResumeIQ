@@ -1,0 +1,667 @@
+
+/* ==========================
+   GLOBAL STYLES
+========================== */
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --background: #f5f7fc;
+    --surface: #ffffff;
+    --text: #172033;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --danger: #dc2626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* ==========================
+   NAVIGATION
+========================== */
+
+.navbar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav-label {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* ==========================
+   MAIN CONTAINER
+========================== */
+
+.container {
+    max-width: 1150px;
+    margin: auto;
+    padding: 50px 24px;
+}
+
+/* ==========================
+   HERO SECTION
+========================== */
+
+.hero {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.eyebrow {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    max-width: 750px;
+    margin: 16px auto;
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 620px;
+    margin: auto;
+    font-size: 16px;
+}
+
+/* ==========================
+   CARDS
+========================== */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
+}
+
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.card-description {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+/* ==========================
+   INPUT GRID
+========================== */
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* ==========================
+   RESUME UPLOAD
+========================== */
+
+.upload-area {
+    border: 2px dashed #c7d2fe;
+    border-radius: 14px;
+    min-height: 230px;
+    background: #f8faff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 25px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.upload-area:hover {
+    background: #eef2ff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.upload-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e0e7ff;
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.upload-area strong {
+    font-size: 16px;
+}
+
+.upload-area span:last-child {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.file-name {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================
+   JOB DESCRIPTION
+========================== */
+
+textarea {
+    width: 100%;
+    min-height: 230px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.7;
+    resize: vertical;
+    outline: none;
+    background: #fbfcff;
+    color: var(--text);
+    transition: 0.2s ease;
+}
+
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+/* ==========================
+   ANALYZE BUTTON
+========================== */
+
+.action-section {
+    text-align: center;
+    margin: 35px 0 50px;
+}
+
+#analyzeBtn {
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+    color: white;
+    border: none;
+    padding: 16px 42px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.22);
+    transition: 0.2s ease;
+}
+
+#analyzeBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.3);
+}
+
+#analyzeBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#statusMessage {
+    margin-top: 15px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+#statusMessage.error {
+    color: var(--danger);
+}
+
+#statusMessage.success {
+    color: var(--success);
+}
+
+/* ==========================
+   RESULTS SECTION
+========================== */
+
+.results {
+    margin-top: 35px;
+}
+
+.results-heading {
+    margin-bottom: 25px;
+}
+
+.results-heading h2 {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.results-heading p {
+    color: var(--muted);
+}
+
+/* ==========================
+   STATISTICS CARDS
+========================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
+}
+
+.stat-card span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.stat-card h3 {
+    font-size: 38px;
+    font-weight: 800;
+    margin-top: 10px;
+    color: var(--primary);
+}
+
+/* ==========================
+   PROGRESS BAR
+========================== */
+
+.progress-card {
+    margin-bottom: 24px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 14px;
+    background: #e2e8f0;
+    border-radius: 50px;
+    overflow: hidden;
+    margin: 22px 0 16px;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #22c55e);
+    border-radius: 50px;
+    transition: width 0.8s ease;
+}
+
+#matchFeedback {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ==========================
+   SKILLS SECTION
+========================== */
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    padding: 8px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.skill-tag.matched {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.skill-tag.missing {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ==========================
+   SKILL RECOMMENDATIONS
+========================== */
+
+.recommendations-section {
+    margin-top: 24px;
+}
+
+.recommendations-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.recommendations-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #eef2ff;
+    border-radius: 12px;
+    font-size: 24px;
+}
+
+.recommendations-header h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.recommendations-header .card-description {
+    margin-bottom: 0;
+}
+
+.recommendations-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.recommendation-card {
+    background: #f8faff;
+    border: 1px solid #e0e7ff;
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.2s ease;
+}
+
+.recommendation-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.recommendation-card h3 {
+    color: var(--primary-dark);
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.recommendation-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==========================
+   DISCLAIMER
+========================== */
+
+.disclaimer {
+    text-align: center;
+    margin-top: 25px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ==========================
+   ANALYSIS HISTORY SECTION
+========================== */
+
+.history-section {
+    margin-top: 60px;
+    padding-top: 35px;
+    border-top: 1px solid var(--border);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.history-header h2 {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.history-header p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* History Button */
+
+#loadHistoryBtn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#loadHistoryBtn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+#loadHistoryBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* History Status */
+
+#historyStatus {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+#historyStatus.error {
+    color: var(--danger);
+}
+
+/* History Cards */
+
+.history-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.history-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
+}
+
+.history-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.history-card h3 {
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.history-date {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.history-score {
+    background: #eef2ff;
+    color: var(--primary-dark);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.history-skills {
+    margin-top: 15px;
+}
+
+.history-skills h4 {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.history-skills .skill-tags {
+    margin-bottom: 12px;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN
+========================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 18px 5%;
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .container {
+        padding: 35px 16px;
+    }
+
+    .input-grid,
+    .skills-grid,
+    .history-container,
+    .recommendations-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .hero {
+        margin-bottom: 30px;
+    }
+
+    .stat-card h3 {
+        font-size: 32px;
+    }
+
+    #analyzeBtn,
+    #loadHistoryBtn {
+        width: 100%;
+    }
+
+    .history-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .history-card {
+        padding: 20px;
+    }
+
+    .recommendations-header {
+        gap: 12px;
+    }
+
+    .recommendation-card {
+        padding: 16px;
+    }
+}

@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResumeIQ | AI Resume Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">Resume<span>IQ</span></div>
+        <div class="nav-label">Resume Analysis Dashboard</div>
+    </header>
+
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="eyebrow">SMART RESUME ANALYSIS</span>
+            <h1>Match your resume to your dream job</h1>
+            <p>
+                Upload your resume, paste a job description,
+                and discover how well your technical skills align
+                with the role.
+            </p>
+        </section>
+
+        <!-- Input Section -->
+        <section class="input-grid">
+
+            <!-- Resume Upload -->
+            <div class="card">
+                <h2>Upload Resume</h2>
+                <p class="card-description">
+                    Upload your resume in PDF format.
+                </p>
+
+                <label for="resumeFile" class="upload-area">
+                    <span class="upload-icon">↑</span>
+                    <strong>Choose your resume</strong>
+                    <span>PDF format, maximum 5 MB</span>
+                </label>
+
+                <input
+                    type="file"
+                    id="resumeFile"
+                    accept=".pdf,application/pdf"
+                    hidden
+                >
+
+                <p id="fileName" class="file-name">
+                    No file selected
+                </p>
+            </div>
+
+            <!-- Job Description -->
+            <div class="card">
+                <h2>Job Description</h2>
+                <p class="card-description">
+                    Paste the job requirements below.
+                </p>
+
+                <label for="jobDescription" class="sr-only">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="jobDescription"
+                    placeholder="Example: We are looking for a Software Engineer skilled in Python, SQL, FastAPI, Docker and AWS..."
+                    rows="9"
+                ></textarea>
+            </div>
+
+        </section>
+
+        <!-- Analyze Button -->
+        <div class="action-section">
+            <button id="analyzeBtn" type="button">
+                Analyze My Resume →
+            </button>
+
+            <p id="statusMessage" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results hidden">
+
+            <div class="results-heading">
+                <h2>Your Analysis Results</h2>
+                <p>
+                    Technical skill compatibility based on
+                    the supplied job description.
+                </p>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Skill Match Score</span>
+                    <h3 id="matchScore">0%</h3>
+                </div>
+
+                <div class="stat-card">
+                    <span>Matched Skills</span>
+                    <h3 id="matchedCount">0</h3>
+                </div>
+
+                <div class="stat-card">
+                    <span>Missing Skills</span>
+                    <h3 id="missingCount">0</h3>
+                </div>
+
+            </div>
+
+            <!-- Match Progress -->
+            <div class="card progress-card">
+                <h2>Job Compatibility</h2>
+
+                <div class="progress-track">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+
+                <p id="matchFeedback"></p>
+            </div>
+
+            <!-- Skills Breakdown -->
+            <div class="skills-grid">
+
+                <div class="card">
+                    <h2>✓ Matched Skills</h2>
+                    <p class="card-description">
+                        Skills found in both your resume and
+                        the job description.
+                    </p>
+
+                    <div id="matchedSkills" class="skill-tags"></div>
+                </div>
+
+                <div class="card">
+                    <h2>Missing Skills</h2>
+                    <p class="card-description">
+                        Skills mentioned in the job description
+                        but not detected in your resume.
+                    </p>
+
+                    <div id="missingSkills" class="skill-tags"></div>
+                </div>
+
+            </div>
+
+            <!-- Skill Improvement Recommendations -->
+            <section
+                id="recommendationsSection"
+                class="recommendations-section card hidden"
+                aria-labelledby="recommendationsHeading"
+            >
+
+                <div class="recommendations-header">
+                    <span class="recommendations-icon" aria-hidden="true">
+                        💡
+                    </span>
+
+                    <div>
+                        <h2 id="recommendationsHeading">
+                            Recommended Skill Improvements
+                        </h2>
+
+                        <p class="card-description">
+                            Suggested learning areas based on skills
+                            mentioned in the job description
+                            but not detected in your resume.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    id="recommendationsContainer"
+                    class="recommendations-container"
+                >
+                    <!-- Recommendations will be added by JavaScript -->
+                </div>
+
+            </section>
+
+            <p class="disclaimer">
+                This score measures recognized technical skill overlap.
+                It is not an official ATS score or a hiring prediction.
+                Recommendations are based on predefined learning guidance.
+            </p>
+
+        </section>
+
+
+        <!-- Previous Resume Analysis History -->
+        <section class="history-section">
+
+            <div class="history-header">
+
+                <div>
+                    <h2>Previous Resume Analyses</h2>
+                    <p>
+                        View your previously saved resume
+                        matching results.
+                    </p>
+                </div>
+
+                <button id="loadHistoryBtn" type="button">
+                    View Analysis History
+                </button>
+
+            </div>
+
+            <p
+                id="historyStatus"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <div
+                id="historyContainer"
+                class="history-container hidden"
+            >
+                <!-- Saved analyses will appear here -->
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>ResumeIQ | Resume Analyzer & Job Matcher</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
