@@ -1,4 +1,6 @@
 
+import os
+import logging
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 import pymupdf
@@ -8,21 +10,52 @@ from .job_matcher import match_resume
 from .database import save_analysis, get_analysis_history
 
 
+# ==========================
+# LOGGING CONFIGURATION
+# ==========================
+
+logger = logging.getLogger(__name__)
+
+
+# ==========================
+# FASTAPI APPLICATION
+# ==========================
+
 app = FastAPI(
     title="AI Resume Analyzer",
     description="Resume Analysis and Job Matching Web Application",
     version="1.1.0"
 )
 
-# Allow frontend to communicate with backend
+
+# ==========================
+# CORS CONFIGURATION
+# ==========================
+
+# Allow existing local frontend
+ALLOWED_ORIGINS = [
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+]
+
+# Allow additional frontend origins configured in Azure App Service.
+# Example:
+# FRONTEND_ORIGINS=https://your-frontend.azurestaticapps.net
+
+extra_origins = os.getenv("FRONTEND_ORIGINS", "")
+
+if extra_origins:
+    ALLOWED_ORIGINS.extend(
+        origin.strip().rstrip("/")
+        for origin in extra_origins.split(",")
+        if origin.strip()
+    )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5500",
-        "http://127.0.0.1:5500"
-    ],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=False,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -251,8 +284,8 @@ async def analyze_resume(
             result=result
         )
 
-    except Exception as error:
-        print("Database save error:", error)
+    except Exception:
+        logger.exception("Database save failed")
 
         raise HTTPException(
             status_code=500,
@@ -285,8 +318,8 @@ def analysis_history():
             "history": history
         }
 
-    except Exception as error:
-        print("Database history error:", error)
+    except Exception:
+        logger.exception("Database history retrieval failed")
 
         raise HTTPException(
             status_code=500,

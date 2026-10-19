@@ -1,12 +1,17 @@
 
+import os
 import pyodbc
 import json
 
-# SQL Server Configuration
+# ==========================================
+# SQL SERVER CONFIGURATION
+# ==========================================
+
+# Local SQL Server configuration
 SERVER = r"localhost\SQLEXPRESS"
 DATABASE = "ResumeIQ"
 
-CONNECTION_STRING = (
+LOCAL_CONNECTION_STRING = (
     "DRIVER={ODBC Driver 18 for SQL Server};"
     f"SERVER={SERVER};"
     f"DATABASE={DATABASE};"
@@ -15,13 +20,27 @@ CONNECTION_STRING = (
     "TrustServerCertificate=yes;"
 )
 
+# Azure SQL Database configuration
+# Set DATABASE_CONNECTION_STRING in Azure App Service.
+# If not configured, use local SQL Server.
+CONNECTION_STRING = os.getenv(
+    "DATABASE_CONNECTION_STRING",
+    LOCAL_CONNECTION_STRING
+)
 
-# Establish SQL Server Connection
+
+# ==========================================
+# ESTABLISH DATABASE CONNECTION
+# ==========================================
+
 def get_connection():
     return pyodbc.connect(CONNECTION_STRING, timeout=5)
 
 
-# Save Resume Analysis Results
+# ==========================================
+# SAVE RESUME ANALYSIS RESULTS
+# ==========================================
+
 def save_analysis(filename, job_description, result):
 
     connection = get_connection()
@@ -69,7 +88,10 @@ def save_analysis(filename, job_description, result):
         connection.close()
 
 
-# Retrieve Previous Resume Analysis Results
+# ==========================================
+# RETRIEVE PREVIOUS ANALYSIS RESULTS
+# ==========================================
+
 def get_analysis_history():
 
     connection = get_connection()
@@ -120,7 +142,10 @@ def get_analysis_history():
         connection.close()
 
 
-# Test Database Connection
+# ==========================================
+# TEST DATABASE CONNECTION
+# ==========================================
+
 if __name__ == "__main__":
 
     try:
