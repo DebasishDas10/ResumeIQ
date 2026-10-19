@@ -7,7 +7,7 @@ import pymupdf
 
 from .skill_extractor import extract_skills
 from .job_matcher import match_resume
-from .database import save_analysis, get_analysis_history
+from .database import save_analysis
 
 
 # ==========================
@@ -306,22 +306,13 @@ async def analyze_resume(
 # ANALYSIS HISTORY API
 # ==========================
 
-@app.get("/analysis-history")
+# Temporarily disabled to protect saved resume analysis records.
+# Re-enable only after implementing user authentication
+# and per-user access controls.
+
+@app.get("/analysis-history", include_in_schema=False)
 def analysis_history():
-
-    try:
-        history = get_analysis_history()
-
-        return {
-            "message": "Analysis history retrieved successfully",
-            "total_analyses": len(history),
-            "history": history
-        }
-
-    except Exception:
-        logger.exception("Database history retrieval failed")
-
-        raise HTTPException(
-            status_code=500,
-            detail="Unable to retrieve analysis history"
-        )
+    raise HTTPException(
+        status_code=403,
+        detail="Analysis history is disabled until user authentication is implemented."
+    )

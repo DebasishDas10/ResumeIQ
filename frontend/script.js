@@ -1,5 +1,5 @@
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://resumeiq-api-debasish-hpg7acezd0haebbm.koreacentral-01.azurewebsites.net";
 
 // ==========================
 // ELEMENT REFERENCES
