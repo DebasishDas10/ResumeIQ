@@ -2,6 +2,15 @@
 import os
 import pyodbc
 import json
+import time
+import logging
+
+# ==========================================
+# LOGGING CONFIGURATION
+# ==========================================
+
+logger = logging.getLogger(__name__)
+
 
 # ==========================================
 # SQL SERVER CONFIGURATION
@@ -31,10 +40,69 @@ CONNECTION_STRING = os.getenv(
 
 # ==========================================
 # ESTABLISH DATABASE CONNECTION
+# WITH AUTOMATIC RETRY LOGIC
 # ==========================================
 
 def get_connection():
-    return pyodbc.connect(CONNECTION_STRING, timeout=30)
+
+    max_attempts = 5
+
+    retryable_errors = [
+        "40613",  # Database temporarily unavailable
+        "40197",  # Azure SQL service error
+        "40501"   # Service busy
+    ]
+
+    for attempt in range(max_attempts):
+
+        try:
+            connection = pyodbc.connect(
+                CONNECTION_STRING,
+                timeout=30
+            )
+
+            return connection
+
+        except pyodbc.Error as error:
+
+            error_message = str(error)
+
+            # Do not retry permanent or unknown errors
+            if not any(
+                code in error_message
+                for code in retryable_errors
+            ):
+                logger.exception(
+                    "Non-retryable database connection error"
+                )
+                raise
+
+            # Stop after maximum attempts
+            if attempt == max_attempts - 1:
+
+                logger.exception(
+                    "Database connection failed after %s attempts",
+                    max_attempts
+                )
+
+                raise
+
+            # Exponential backoff
+            wait_seconds = min(
+                2 ** (attempt + 1),
+                15
+            )
+
+            logger.warning(
+                "Azure SQL temporarily unavailable. "
+                "Attempt %s/%s failed. "
+                "Retrying in %s seconds.",
+                attempt + 1,
+                max_attempts,
+                wait_seconds
+            )
+
+            time.sleep(wait_seconds)
 
 
 # ==========================================
